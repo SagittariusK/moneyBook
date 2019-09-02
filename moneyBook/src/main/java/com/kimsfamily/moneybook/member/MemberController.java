@@ -74,21 +74,18 @@ public class MemberController {
 		
 		JSONObject obj = new JSONObject();
 		
-		String user_pwd = "" + reqmap.get("user_pwd");
-		String user_password = "";
 		try {
-			user_password = KISA_SHA256.getEncCode(user_pwd);
+			String user_password = KISA_SHA256.getEncCode(reqmap.get("user_pwd").toString());
+			reqmap.put("user_password", user_password);
 		} catch (UnsupportedEncodingException e) {
 			logger.info("@RequestMapping member/ajax/loginAction.do KISA_SHA256.getEncCode(user_pwd)");
 			logger.error(e.getMessage());
 		}
-		reqmap.put("user_password", user_password);
 		
-		MemberVO memberVO = mService.r_member_login(reqmap);
-		System.out.println("결과 user_seq ==> " + memberVO.getUser_seq());
+		int resultFlag = mService.r_member_login(session, reqmap);
 		
 		try {
-			obj.put("chk", 1);
+			obj.put("resultFlag", resultFlag);
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().print(obj);
@@ -110,17 +107,39 @@ public class MemberController {
 		new RequestUtil(request);
 		logger.info("-----------------------------------------------------------------");
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView("/member/join");
 		
-		try {
-			mav = new ModelAndView("/member/join");
-			
+		if(null != reqmap && !reqmap.isEmpty()) {
 			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping member/login.do Catch");
-			logger.error(e.getMessage());
 		}
 		
 		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/ajax/realTimeIDCheck.do", method = RequestMethod.POST)
+	public void realTimeIDCheck(@RequestParam HashMap<String, Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		logger.info("-----------------------------------------------------------------");
+		logger.info("@RequestMapping member/ajax/realTimeIDCheck.do");
+		if(!reqmap.isEmpty()) {
+			new RequestUtil(reqmap);
+		}
+		new RequestUtil(request);
+		logger.info("-----------------------------------------------------------------");
+		
+		JSONObject obj = new JSONObject();
+		
+		int resultFlag = mService.realTimeIDCheck(reqmap);
+		
+		try {
+			obj.put("resultFlag", resultFlag);
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8"); 
+			response.getWriter().print(obj);
+		} catch (Exception e) {
+			logger.info("@RequestMapping member/ajax/realTimeIDCheck.do");
+			logger.error(e.getMessage());
+		}
+		
 	}
 }
