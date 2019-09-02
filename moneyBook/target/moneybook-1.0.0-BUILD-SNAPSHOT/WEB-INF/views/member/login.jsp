@@ -70,35 +70,15 @@
 				
 				var action = '/member/ajax/loginAction.do';
 				
-				DataAjax2(action, 'loginForm', '');
+				var resultData = DataAjax2(action, 'loginForm', '');
 
-				setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
-				
-				/* $.ajax({
-					url: action,
-					data: form_data,
-					type: 'POST',
-					dataType: 'json',
-					async: false,
-					contentType: false,
-					processData: false,
-					success: function(data){
-						var chk = data.chk;
-						if(1 == chk){
-							alert("데이터를 수정하였습니다.\nSAP 재 전송을 원하실 경우\n하단에 'SAP 재 전송' 버튼을 눌러주세요.\n전송버튼은 얼럿을 닫은 후 약 3초후 활성화 됩니다.");
-						}else{
-							alert("데이터 수정에 실패하였습니다.\n전송버튼은 얼럿을 닫은 후 약 3초후 활성화 됩니다.");
-						}
-						setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
-					},
-					error: function(request, status, error){
-						alert('에러가 발생!!! 관리자에게 문의!');
-						alert("code = "+ request.status);
-						alert("message = " + request.responseText);
-						alert("error = " + error);
-						setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
-					}
-				}); */
+				if(!resultData){
+					alert('실패');
+					setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
+				}else{
+					alert('성공');
+					setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
+				}
 			}
         	
         });
