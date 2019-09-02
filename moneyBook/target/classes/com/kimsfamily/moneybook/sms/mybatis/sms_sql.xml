@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.eduhansol.dpsi.sms">
+
+	<select id="testLogin" resultType="HashMap">
+		SELECT TOP 1 * FROM IMC_AT_BIZ_MSG_LOG ORDER BY RESERVED_DATE DESC
+	</select>
+
+	<select id="insertAtMsg" parameterType="hashmap">
+		<![CDATA[		
+		insert into IMC_AT_BIZ_MSG
+		(
+			  STATUS
+			, PRIORITY
+			, RESERVED_DATE
+			, SENDER_KEY
+			, PHONE_NUMBER
+			
+			, TEMPLATE_CODE
+			, MESSAGE
+			, ATTACHMENT_JSON
+			, RESEND_MT_TYPE
+			, RESEND_MT_FROM
+			
+			, RESEND_MT_TO
+			, RESEND_MT_MESSAGE_REUSE
+			, ETC2
+		)
+		values
+		(
+			  '1'
+			, 'N'
+			, convert(varchar(10),Getdate(),112) + replace(convert(varchar(8),getdate(),108),':','')
+			, #{sendkey}
+			, #{interCellphone}
+			, #{templatecode}
+			, #{vocMSG}+CHAR(13)+CHAR(10)+#{vocMSG2}+CHAR(13)+CHAR(10)+#{vocMSG3}
+			, #{link}
+			, 'LM'
+			, #{callback}
+			, #{cellphone}		
+			, 'Y'
+			, 'myhansol'
+		)
+		]]>
+	</select>
+
+</mapper>
