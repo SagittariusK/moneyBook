@@ -64,9 +64,9 @@
 		<div class="row">
 			<div class="col-md-12 order-md-1">
 				<form id="joinForm" class="needs-validation">
-					<div class="mb-3">
+					<div id="user_id_div" class="mb-3">
 						<label for="user_id">아이디</label>
-						<input type="text" class="form-control" id="user_id" name="user_id" placeholder="ex) your identity">
+						<input type="text" class="form-control" id="user_id" name="user_id" placeholder="ex) 로그인에 사용할 아이디">
 						<input type="hidden" id="user_id_frag" value="F">
 					</div>
 					
@@ -78,7 +78,7 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="mb-3">
+					<div id="user_password_div" class="mb-3">
 						<label for="user_password">비밀번호</label>
 						<input type="password" class="form-control" id="user_password" name="user_password" required>
 						<input type="hidden" id="user_password_frag" value="F">
@@ -97,7 +97,7 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="mb-3">
+					<div id="user_name_div" class="mb-3">
 						<label for="user_name">이름</label>
 						<input type="text" class="form-control" id="user_name" name="user_name" placeholder="ex) 홍길동" required>
 						<input type="hidden" id="user_name_frag" value="F">
@@ -111,7 +111,7 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="mb-3">
+					<div id="user_nickname_div" class="mb-3">
 						<label for="user_nickname">닉네임</label>
 						<input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="ex) 닉네임" required>
 						<input type="hidden" id="user_nickname_frag" value="F">
@@ -125,9 +125,20 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="mb-3">
-						<label for="user_bdate">생년월일</label>
-						<input type="text" class="form-control" id="user_bdate" name="user_bdate" placeholder="ex) 19880101" required>
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<input type="hidden" id="user_bdate" name="user_bdate" value="">
+							<label for="user_bdate">생년월일</label>
+							<input type="text" class="form-control" id="user_bdate1" placeholder="ex) 년도" required>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="user_bdate2" class="d-none d-md-block"><span class="invisible">월</span></label>
+							<input type="text" class="form-control" id="user_bdate2" placeholder="ex) 월" required>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="user_bdate3" class="d-none d-md-block"><span class="invisible">일</span></label>
+							<input type="text" class="form-control" id="user_bdate3" placeholder="ex) 일" required>
+						</div>
 						<input type="hidden" id="user_bdate_frag" value="F">
 					</div>
 					
@@ -142,13 +153,13 @@
 					<div class="row">
 						<div class="col-md-3 mb-3">
 							<div class="custom-control custom-radio">
-								<input type="radio" class="custom-control-input" id="user_gender_m" name="user_gender" checked required>
+								<input type="radio" class="custom-control-input" id="user_gender_m" name="user_gender" value="M" checked required>
 								<label class="custom-control-label" for="user_gender_m">남자</label>
 							</div>
 						</div>
 						<div class="col-md-3 mb-3">
 							<div class="custom-control custom-radio">
-								<input type="radio" class="custom-control-input" id="user_gender_f" name="user_gender" required>
+								<input type="radio" class="custom-control-input" id="user_gender_f" name="user_gender" value="F" required>
 								<label class="custom-control-label" for="user_gender_f">여자</label>
 							</div>
 						</div>
@@ -163,8 +174,8 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="row">
-						<div class="col-md-4 mb-3">
+					<div class="row mb-3">
+						<div class="col-md-4">
 							<input type="hidden" id="user_tel" name="user_tel" value="">
 							<label for="user_phone1">전화번호</label>
 							<select class="custom-select d-block w-100" id="user_tel1">
@@ -196,9 +207,13 @@
 								<option value="070">070</option>
 							</select>
 						</div>
-						<div class="col-md-8 mb-3">
-							<label for="user_tel2"><span class="invisible">뒷 전화번호</span></label>
-							<input type="text" class="form-control" id="user_tel2" placeholder="ex) 1234-5678">
+						<div class="col-md-4">
+							<label for="user_tel2" class="d-none d-md-block"><span class="invisible">가운데 전화번호</span></label>
+							<input type="text" class="form-control" id="user_tel2" placeholder="ex) 가운데번호">
+						</div>
+						<div class="col-md-4">
+							<label for="user_tel3" class="d-none d-md-block"><span class="invisible">뒷 전화번호</span></label>
+							<input type="text" class="form-control" id="user_tel3" placeholder="ex) 뒷번호">
 						</div>
 						<input type="hidden" id="user_tel_frag" value="F">
 					</div>
@@ -211,11 +226,11 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="row">
-						<div class="col-md-4 mb-3">
+					<div id="user_phone_div" class="row mb-3">
+						<div class="col-md-4">
 							<input type="hidden" id="user_phone" name="user_phone" value="">
 							<label for="user_phone1">핸드폰 번호</label>
-							<select class="custom-select d-block w-100" id="user_phone1" name="user_phone1" required>
+							<select class="custom-select d-block w-100" id="user_phone1" required>
 								<option value="" selected>선택...</option>
 								<option value="010">010</option>
 								<option value="011">011</option>
@@ -226,9 +241,13 @@
 								<option value="070">070</option>
 							</select>
 						</div>
-						<div class="col-md-8 mb-3">
-							<label for="user_phone2"><span class="invisible">뒷 번호</span></label>
-							<input type="text" class="form-control" id="user_phone2" name="user_phone2" placeholder="ex) 1234-5678" required>
+						<div class="col-md-4">
+							<label for="user_phone2" class="d-none d-md-block"><span class="invisible">가운데 번호</span></label>
+							<input type="text" class="form-control" id="user_phone2" placeholder="ex) 가운데번호" required>
+						</div>
+						<div class="col-md-4">
+							<label for="user_phone3" class="d-none d-md-block"><span class="invisible">뒷 번호</span></label>
+							<input type="text" class="form-control" id="user_phone3" placeholder="ex) 뒷번호" required>
 						</div>
 						<input type="hidden" id="user_phone_frag" value="F">
 					</div>
@@ -241,18 +260,18 @@
 						<hr class="mb-4">
 					</div>
 					
-					<div class="row">
-						<div class="col-md-4 mb-3">
+					<div id="user_email_div" class="row mb-3">
+						<div class="col-md-4">
 							<input type="hidden" id="user_email" name="user_email" value="">
-							<label for="user_email1">이메일ID</label>
-							<input type="text" class="form-control" id="user_email1" placeholder="ex) email id" required>
+							<label for="user_email1">이메일</label>
+							<input type="text" class="form-control" id="user_email1" placeholder="ex) 이메일 ID" required>
 						</div>
-						<div class="col-md-4 mb-3">
-							<label for="user_email2"><span class="invisible">주소 입력</span></label>
-							<input type="text" class="form-control" id="user_email2" placeholder="ex) email site" required>
+						<div class="col-md-4">
+							<label for="user_email2" class="d-none d-md-block"><span class="invisible">이메일 주소 입력</span></label>
+							<input type="text" class="form-control" id="user_email2" placeholder="ex) 나머지 주소" required>
 						</div>
-						<div class="col-md-4 mb-3">
-							<label for="user_email_select"><span class="invisible">주소 선택</span></label>
+						<div class="col-md-4">
+							<label for="user_email_select" class="d-none d-md-block"><span class="invisible">이메일 주소 선택</span></label>
 							<select class="custom-select d-block w-100" id="user_email_select" required>
 								<option value="" selected>선택...</option>
 								<option value="gmail.com">@gmail.com</option>
@@ -274,11 +293,28 @@
 						<hr class="mb-4">
 					</div>
 					
+					<div id="user_addr_div" class="row">
+						<div class="col-md-6">
+							<label for="user_addr1">주소</label>
+							<input type="text" class="form-control" id="user_addr1" name="user_addr1" readonly required>
+						</div>
+						<div class="col-md-3">
+							<label for="user_zipcode" class="d-none d-md-block"><span class="invisible">우편번호</span></label>
+							<input type="text" class="form-control text-center" id="user_zipcode" name="user_zipcode" readonly required>
+						</div>
+						<div class="col-md-3">
+							<label for="addressSearch" class="d-none d-md-block"><span class="invisible">주소검색</span></label>
+							<input type="button" id="addressSearch" class="btn btn-success btn-sm btn-block" value="주소검색">
+						</div>
+					</div>
 					<div class="mb-3">
-						<label for="address">주소</label>
-						<input type="text" class="form-control" id="user_addr1" name="user_addr1" readonly required>
 						<input type="text" class="form-control" id="user_addr2" name="user_addr2" readonly required>
+						<input type="text" class="form-control" id="user_addr_etc" name="user_addr2_etc" readonly required>
 						<input type="text" class="form-control" id="user_addr_detail" name="user_addr_detail" placeholder="ex) 상세주소" required>
+						<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+						<input type="hidden" id="user_addr_jibun" name="user_addr_jibun" value="">
+						<input type="hidden" id="user_addr_eng" name="user_addr_eng" value="">
+						<input type="hidden" id="user_addr_jibun_eng" name="user_addr_jibun_eng" value="">
 						<input type="hidden" id="user_addr_frag" value="F">
 					</div>
 					
@@ -291,19 +327,141 @@
 					</div>
 					
 					<hr class="mb-4">
-					<input type="button" class="btn btn-primary btn-lg btn-block" value="회원가입">
+					<input type="button" id="joinBtn" class="btn btn-primary btn-lg btn-block" value="회원가입">
 				</form>
 			</div>
 		</div>
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">© 2017-2019 Company Name</p>
+			<p class="mb-1">&copy; 김서연가족</p>
+			<!-- 
 			<ul class="list-inline">
 				<li class="list-inline-item"><a href="#">Privacy</a></li>
 				<li class="list-inline-item"><a href="#">Terms</a></li>
 				<li class="list-inline-item"><a href="#">Support</a></li>
 			</ul>
+			 -->
 		</footer>
 	</div>
 </body>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=257cbfbc4bd15e375afe749c09ed8cf4&libraries=services"></script>
+<script>
+	$(document).ready(function() {
+		user_zipcode_controll();
+		$( window ).resize(function() {
+			user_zipcode_controll();
+		});
+
+		function user_zipcode_controll(){
+			var windowWidth = $( window ).width();
+			if(768 <= windowWidth){
+				$('#user_zipcode').addClass('text-center');
+			}else{
+				$('#user_zipcode').removeClass('text-center');
+			}
+		}
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		mapOption = {
+		    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+		    level: 5 // 지도의 확대 레벨
+		};
+		
+		//지도를 미리 생성
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		//주소-좌표 변환 객체를 생성
+		var geocoder = new daum.maps.services.Geocoder();
+		//마커를 미리 생성
+		var marker = new daum.maps.Marker({
+		    position: new daum.maps.LatLng(37.537187, 127.005476),
+		    map: map
+		});
+
+		$('#addressSearch').click(function(){
+			new daum.Postcode({
+	            oncomplete: function(data) {
+	            	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var roadAddr = data.roadAddress; // 도로명 주소 변수
+	                var extraRoadAddr = ''; // 참고 항목 변수
+
+	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraRoadAddr += data.bname;
+	                }
+	                // 건물명이 있고, 공동주택일 경우 추가한다.
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraRoadAddr !== ''){
+	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                //document.getElementById('user_zipcode').value = data.zonecode;
+	                $('#user_zipcode').val(data.zonecode);
+	                $('#user_addr1').val(data.sido + ' ' + data.sigungu);
+	                $('#user_addr2').val(data.query);
+	                $('#user_addr_jibun').val(data.jibunAddress);
+	                $('#user_addr_eng').val(data.roadAddressEnglish);
+	                $('#user_addr_jibun_eng').val(data.jibunAddressEnglish);
+	                
+	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+	                if(roadAddr !== ''){
+	                    //document.getElementById("user_addr_etc").value = extraRoadAddr;
+	                    $('#user_addr_etc').val(extraRoadAddr);
+	                } else {
+	                    //document.getElementById("user_addr_etc").value = '';
+	                    $('#user_addr_etc').val('');
+	                }
+
+					/*
+	                var guideTextBox = document.getElementById("guide");
+	                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+	                if(data.autoRoadAddress) {
+	                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+	                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+	                    guideTextBox.style.display = 'block';
+
+	                } else if(data.autoJibunAddress) {
+	                    var expJibunAddr = data.autoJibunAddress;
+	                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+	                    guideTextBox.style.display = 'block';
+	                } else {
+	                    guideTextBox.innerHTML = '';
+	                    guideTextBox.style.display = 'none';
+	                }
+	                */
+
+	                var addr = data.address; // 최종 주소 변수
+	                
+	                // 주소로 상세 정보를 검색
+	                geocoder.addressSearch(data.address, function(results, status) {
+	                    // 정상적으로 검색이 완료됐으면
+	                    if (status === daum.maps.services.Status.OK) {
+
+	                        var result = results[0]; //첫번째 결과의 값을 활용
+
+	                        // 해당 주소에 대한 좌표를 받아서
+	                        var coords = new daum.maps.LatLng(result.y, result.x);
+	                        // 지도를 보여준다.
+	                        mapContainer.style.display = "block";
+	                        map.relayout();
+	                        // 지도 중심을 변경한다.
+	                        map.setCenter(coords);
+	                        // 마커를 결과값으로 받은 위치로 옮긴다.
+	                        marker.setPosition(coords)
+	                    }
+	                });
+	            }
+	        }).open();
+		});
+		
+	});
+</script>
 </html>

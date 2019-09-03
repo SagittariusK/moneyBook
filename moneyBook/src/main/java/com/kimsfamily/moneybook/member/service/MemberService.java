@@ -40,6 +40,25 @@ public class MemberService {
 		
 		int resultFlag = 0;
 		List<Integer> loginList = oDao.selectList(namespace + ".realTimeIDCheck", reqmap); 
+		if(0 == loginList.get(0)) {
+			resultFlag = 0;
+		}else {
+			resultFlag = 1;
+			System.out.println("loginList ==> " + loginList.toString());
+		}
+		
+		return resultFlag;
+	}
+	
+	public int c_member_join(HashMap<String, Object> reqmap) {
+		
+		int resultFlag = 999;
+		
+		resultFlag = oDao.insert(namespace + ".c_member_join", reqmap);
+		
+		System.out.println("resultFlag ==> " + resultFlag);
+		/*
+		List<Integer> loginList = oDao.selectList(namespace + ".realTimeIDCheck", reqmap); 
 		System.out.println("#### " + loginList.get(0));
 		if(0 == loginList.get(0)) {
 			resultFlag = 0;
@@ -47,6 +66,7 @@ public class MemberService {
 			resultFlag = 1;
 			System.out.println("loginList ==> " + loginList.toString());
 		}
+		*/
 		
 		return resultFlag;
 	}

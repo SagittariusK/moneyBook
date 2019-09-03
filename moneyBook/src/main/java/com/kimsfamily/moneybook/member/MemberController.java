@@ -54,7 +54,7 @@ public class MemberController {
 			
 			mav.addObject("map",reqmap);
 		} catch (Exception e) {
-			logger.info("@RequestMapping member/login.do Catch");
+			logger.info("@RequestMapping member/login.do Error");
 			logger.error(e.getMessage());
 		}
 		
@@ -90,7 +90,7 @@ public class MemberController {
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().print(obj);
 		} catch (Exception e) {
-			logger.info("@RequestMapping member/ajax/loginAction.do");
+			logger.info("@RequestMapping member/ajax/loginAction.do Error");
 			logger.error(e.getMessage());
 		}
 		
@@ -137,7 +137,42 @@ public class MemberController {
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().print(obj);
 		} catch (Exception e) {
-			logger.info("@RequestMapping member/ajax/realTimeIDCheck.do");
+			logger.info("@RequestMapping member/ajax/realTimeIDCheck.do Error");
+			logger.error(e.getMessage());
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/ajax/joinAction.do", method = RequestMethod.POST)
+	public void joinAction(@RequestParam HashMap<String, Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		logger.info("-----------------------------------------------------------------");
+		logger.info("@RequestMapping member/ajax/joinAction.do");
+		if(!reqmap.isEmpty()) {
+			new RequestUtil(reqmap);
+		}
+		new RequestUtil(request);
+		logger.info("-----------------------------------------------------------------");
+		
+		JSONObject obj = new JSONObject();
+		
+		try {
+			String user_password = KISA_SHA256.getEncCode(reqmap.get("user_password").toString());
+			reqmap.put("user_password", user_password);
+		} catch (UnsupportedEncodingException e) {
+			logger.info("@RequestMapping member/ajax/loginAction.do KISA_SHA256.getEncCode(user_pwd)");
+			logger.error(e.getMessage());
+		}
+		reqmap.put("user_gubun", "1000000");
+		int resultFlag = mService.c_member_join(reqmap);
+		
+		try {
+			obj.put("resultFlag", resultFlag);
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8"); 
+			response.getWriter().print(obj);
+		} catch (Exception e) {
+			logger.info("@RequestMapping member/ajax/joinAction.do Error");
 			logger.error(e.getMessage());
 		}
 		

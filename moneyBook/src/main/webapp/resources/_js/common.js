@@ -1,3 +1,9 @@
+//특정 태그 ID로 스크롤 이동
+function scrollMove(id){
+	var scmove = $('#' + id).offset().top;
+	$('html, body').animate( { scrollTop : scmove }, 400 );
+}
+
 //특정 인덱스만 바꾸기
 String.prototype.replaceReAt = function(index, character) {
 	return this.substr(0, index) + character + this.substr(index + 1, this.length);
@@ -31,7 +37,8 @@ function realTimeCheck(id, successFlag, text){
 	}else{
 		$('#'+ id.toLowerCase() + '_confirm').addClass('d-none');
 		$('#realTime' + id.toUpperCase() + 'check').addClass('d-none');
-		$('#realTime' + id.toUpperCase() + 'check').text('F');
+		$('#realTime' + id.toUpperCase() + 'check').text('');
+		$('#user_' + id.toLowerCase() + '_frag').val('F');
 	}
 	
 }
@@ -71,6 +78,7 @@ function DataAjax2(url, form_id, errorFlag) {
 			resultData = result;
 		},
 		error : function(request, status, error) {
+			resultData = 'ajax_error';
 			if(null != errorFlag && 'Y' == errorFlag.toUpperCase()){
 				alert("code = "+ request.status);
 				alert("message = " + request.responseText);
