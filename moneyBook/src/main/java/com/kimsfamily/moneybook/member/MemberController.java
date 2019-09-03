@@ -96,10 +96,10 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value = "/member/join.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/joinForm.do", method = RequestMethod.GET)
 	public ModelAndView join(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /member/login.do");
+		logger.info("@RequestMapping /member/joinForm.do");
 		if(!reqmap.isEmpty()) {
 			logger.info("@RequestParam reqmap ==> ");
 			logger.info(reqmap.toString());
@@ -107,7 +107,7 @@ public class MemberController {
 		new RequestUtil(request);
 		logger.info("-----------------------------------------------------------------");
 		
-		ModelAndView mav = new ModelAndView("/member/join");
+		ModelAndView mav = new ModelAndView("/member/joinForm");
 		
 		if(null != reqmap && !reqmap.isEmpty()) {
 			mav.addObject("map",reqmap);

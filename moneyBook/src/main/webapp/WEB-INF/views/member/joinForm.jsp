@@ -33,6 +33,7 @@
 	
 	<!-- Custom -->
 	<script src="/resources/_js/common.js"></script>
+	<script src="/resources/_js/member/joinForm.js"></script>
 	
 	<style>
 	.bd-placeholder-img {
@@ -51,105 +52,6 @@
 	}
 	</style>
 	
-	<script>
-	$(document).ready(function() {
-		$('#user_id').keyup(function(){
-			var id_regExp = /^[a-z]+[a-z0-9]{4,19}$/g;
-			
-			var user_id = $('#user_id').val();
-			
-			user_id = user_id.toLowerCase(); 
-			$('#user_id').val(user_id);
-			//alert(!id_regExp.test(user_id));
-			if('' == user_id){
-				$('#realTimeIDcheck').removeClass('text-danger');
-				$('#realTimeIDcheck').removeClass('text-primary');
-				$('#realTimeIDcheck').addClass('d-none');
-				$('#realTimeIDcheck').text('F');
-				return;
-			}else if(user_id.length < 5 || user_id.length > 20 || !id_regExp.test(user_id)){
-				$('#realTimeIDcheck').removeClass('d-none');
-				$('#realTimeIDcheck').removeClass('text-danger');
-				$('#realTimeIDcheck').removeClass('text-primary');
-				$('#realTimeIDcheck').addClass('text-danger');
-				$('#realTimeIDcheck').text('아이디는 영문자로 시작하는 5~20자 영문자 또는 숫자이어야 합니다.');
-				$('#user_id_frag').val('F');
-				return;
-			}
-			
-			var action = '/member/ajax/realTimeIDCheck.do';
-
-			var resultData = DataAjax2(action, 'joinForm', '');
-
-			if(!resultData){
-				alert('실패하였습니다.\n관리자에게 문의하세요.');
-			}else{
-				var resultFlag = resultData.resultFlag;
-				if(0 == resultFlag){
-					$('#realTimeIDcheck').removeClass('d-none');
-					$('#realTimeIDcheck').removeClass('text-danger');
-					$('#realTimeIDcheck').removeClass('text-primary');
-					$('#realTimeIDcheck').addClass('text-primary');
-					$('#realTimeIDcheck').text('사용가능한 아이디 입니다.');
-					$('#user_id_frag').val('S');
-				}else{
-					$('#realTimeIDcheck').removeClass('d-none');
-					$('#realTimeIDcheck').removeClass('text-danger');
-					$('#realTimeIDcheck').removeClass('text-primary');
-					$('#realTimeIDcheck').addClass('text-danger');
-					$('#realTimeIDcheck').text('이미 사용중인 아이디 입니다.');
-					$('#user_id_frag').val('F');
-				}
-			}
-		});
-
-		$('#user_password, #user_password_confirm').keyup(function(){
-			var pwd_regExp = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
-			
-			var user_password = $('#user_password').val();
-			var user_password_confirm = $('#user_password_confirm').val();
-			
-			if('' == user_password || '' == user_password_confirm){
-				$('#realTimePWcheck').removeClass('text-danger');
-				$('#realTimePWcheck').removeClass('text-primary');
-				$('#realTimePWcheck').addClass('d-none');
-				$('#user_password_frag').text('F');
-				return;
-			}
-			
-			if(user_password.length < 8){
-				$('#realTimePWcheck').removeClass('d-none');
-				$('#realTimePWcheck').removeClass('text-danger');
-				$('#realTimePWcheck').removeClass('text-primary');
-				$('#realTimePWcheck').addClass('text-danger');
-				$('#realTimePWcheck').text('비밀번호는 8자리 이상으로 해주시기 바랍니다.');
-				$('#user_password_frag').text('F');
-			}else if(user_password != user_password_confirm){
-				$('#realTimePWcheck').removeClass('d-none');
-				$('#realTimePWcheck').removeClass('text-danger');
-				$('#realTimePWcheck').removeClass('text-primary');
-				$('#realTimePWcheck').addClass('text-danger');
-				$('#realTimePWcheck').text('비밀번호가 일치하지 않습니다.');
-				$('#user_password_frag').text('F');
-			}else if(!pwd_regExp.test(user_password)){
-				$('#realTimePWcheck').removeClass('d-none');
-				$('#realTimePWcheck').removeClass('text-danger');
-				$('#realTimePWcheck').removeClass('text-primary');
-				$('#realTimePWcheck').addClass('text-danger');
-				$('#realTimePWcheck').text('비밀번호는 영문, 숫자, 특수문자가 모두 포함되도록 해주시기 바랍니다.');
-				$('#user_password_frag').text('F');
-			}else{
-				$('#realTimePWcheck').removeClass('d-none');
-				$('#realTimePWcheck').removeClass('text-danger');
-				$('#realTimePWcheck').removeClass('text-primary');
-				$('#realTimePWcheck').addClass('text-primary');
-				$('#realTimePWcheck').text('사용가능한 비밀번호입니다.');
-				$('#user_password_frag').text('S');
-			}
-			
-		});
-	});
-	</script>
 </head>
 <body class="bg-light">
 	<div class="container" style="max-width: 500px">
@@ -168,6 +70,14 @@
 						<input type="hidden" id="user_id_frag" value="F">
 					</div>
 					
+					<div id="id_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeIDcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
+					</div>
+					
 					<div class="mb-3">
 						<label for="user_password">비밀번호</label>
 						<input type="password" class="form-control" id="user_password" name="user_password" required>
@@ -178,14 +88,11 @@
 						<label for="user_password_confirm">비밀번호 확인</label>
 						<input type="password" class="form-control" id="user_password_confirm" name="user_password_confirm" required>
 					</div>
-					<div id="id_pw_confirm">
+					
+					<div id="password_confirm" class="d-none">
 						<hr class="mb-4">
 						<div class="mb-3">
-							<span id="realTimeIDcheck" class="d-none"></span>
-						</div>
-						<hr class="mb-4">
-						<div class="mb-3">
-							<span id="realTimePWcheck" class="d-none"></span>
+							<span id="realTimePASSWORDcheck" class="d-none"></span>
 						</div>
 						<hr class="mb-4">
 					</div>
@@ -193,16 +100,43 @@
 					<div class="mb-3">
 						<label for="user_name">이름</label>
 						<input type="text" class="form-control" id="user_name" name="user_name" placeholder="ex) 홍길동" required>
+						<input type="hidden" id="user_name_frag" value="F">
+					</div>
+					
+					<div id="name_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeNAMEcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<div class="mb-3">
 						<label for="user_nickname">닉네임</label>
-						<input type="text" class="form-control" id="user_name" name="user_nickname" placeholder="ex) 닉네임" required>
+						<input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="ex) 닉네임" required>
+						<input type="hidden" id="user_nickname_frag" value="F">
+					</div>
+					
+					<div id="nickname_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeNICKNAMEcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<div class="mb-3">
 						<label for="user_bdate">생년월일</label>
-						<input type="text" class="form-control" id="user_bdate" name="user_bdate" placeholder="ex) 19881124" required>
+						<input type="text" class="form-control" id="user_bdate" name="user_bdate" placeholder="ex) 19880101" required>
+						<input type="hidden" id="user_bdate_frag" value="F">
+					</div>
+					
+					<div id="bdate_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeBDATEcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<div class="row">
@@ -218,12 +152,22 @@
 								<label class="custom-control-label" for="user_gender_f">여자</label>
 							</div>
 						</div>
+						<input type="hidden" id="user_gender_frag" value="F">
+					</div>
+					
+					<div id="gender_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeGENDERcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="user_phone1">지역번호</label>
-							<select class="custom-select d-block w-100" id="user_tel1" name="user_tel1">
+							<input type="hidden" id="user_tel" name="user_tel" value="">
+							<label for="user_phone1">전화번호</label>
+							<select class="custom-select d-block w-100" id="user_tel1">
 								<option value="" selected>선택...</option>
 								<option value="02">02</option>
 								<option value="031">031</option>
@@ -253,14 +197,24 @@
 							</select>
 						</div>
 						<div class="col-md-8 mb-3">
-							<label for="user_tel2">전화번호</label>
-							<input type="text" class="form-control" id="user_tel2" name="user_tel2" placeholder="ex) 1234-5678">
+							<label for="user_tel2"><span class="invisible">뒷 전화번호</span></label>
+							<input type="text" class="form-control" id="user_tel2" placeholder="ex) 1234-5678">
 						</div>
+						<input type="hidden" id="user_tel_frag" value="F">
+					</div>
+					
+					<div id="tel_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeTELcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="user_phone1">앞번호</label>
+							<input type="hidden" id="user_phone" name="user_phone" value="">
+							<label for="user_phone1">핸드폰 번호</label>
 							<select class="custom-select d-block w-100" id="user_phone1" name="user_phone1" required>
 								<option value="" selected>선택...</option>
 								<option value="010">010</option>
@@ -273,14 +227,51 @@
 							</select>
 						</div>
 						<div class="col-md-8 mb-3">
-							<label for="user_phone2">폰번호</label>
+							<label for="user_phone2"><span class="invisible">뒷 번호</span></label>
 							<input type="text" class="form-control" id="user_phone2" name="user_phone2" placeholder="ex) 1234-5678" required>
 						</div>
+						<input type="hidden" id="user_phone_frag" value="F">
 					</div>
 					
-					<div class="mb-3">
-						<label for="user_email">이메일</label>
-						<input type="email" class="form-control" id="user_email" name="user_email" placeholder="ex) you@example.com" required>
+					<div id="phone_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimePHONEcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
+					</div>
+					
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<input type="hidden" id="user_email" name="user_email" value="">
+							<label for="user_email1">이메일ID</label>
+							<input type="text" class="form-control" id="user_email1" placeholder="ex) email id" required>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="user_email2"><span class="invisible">주소 입력</span></label>
+							<input type="text" class="form-control" id="user_email2" placeholder="ex) email site" required>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="user_email_select"><span class="invisible">주소 선택</span></label>
+							<select class="custom-select d-block w-100" id="user_email_select" required>
+								<option value="" selected>선택...</option>
+								<option value="gmail.com">@gmail.com</option>
+								<option value="naver.com">@naver.com</option>
+								<option value="hanmail.net">@hanmail.net</option>
+								<option value="outlook.com">@outlook.com</option>
+								<option value="nate.com">@nate.com</option>
+								<option value="">직접입력</option>
+							</select>
+						</div>
+						<input type="hidden" id="user_email_frag" value="F">
+					</div>
+					
+					<div id="email_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeEMAILcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<div class="mb-3">
@@ -288,6 +279,15 @@
 						<input type="text" class="form-control" id="user_addr1" name="user_addr1" readonly required>
 						<input type="text" class="form-control" id="user_addr2" name="user_addr2" readonly required>
 						<input type="text" class="form-control" id="user_addr_detail" name="user_addr_detail" placeholder="ex) 상세주소" required>
+						<input type="hidden" id="user_addr_frag" value="F">
+					</div>
+					
+					<div id="addr_confirm" class="d-none">
+						<hr class="mb-4">
+						<div class="mb-3">
+							<span id="realTimeADDRcheck" class="d-none"></span>
+						</div>
+						<hr class="mb-4">
 					</div>
 					
 					<hr class="mb-4">
