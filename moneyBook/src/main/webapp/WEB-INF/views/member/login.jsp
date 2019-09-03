@@ -73,10 +73,19 @@
 				var resultData = DataAjax2(action, 'loginForm', '');
 
 				if(!resultData){
-					alert('실패');
+					alert('실패하였습니다.\n관리자에게 문의하세요.');
 					setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
 				}else{
-					alert('성공');
+					var resultFlag = resultData.resultFlag;
+					if(0 == resultFlag){
+						alert('조회가 되지 않습니다.\n정보를 확인하세요.');
+					}else if(2 == resultFlag){
+						//동일한 계정이 2개이상 조회
+						alert('계정에 문제가 있습니다.\n관리자에게 문의하세요.');
+					}else{
+						alert('로그인이 성공하였습니다.');
+						//location.href="";
+					}
 					setTimeout(function(){ useCouponBtnAbled(loginBtn); }, 3000);
 				}
 			}

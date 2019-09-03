@@ -2,8 +2,6 @@ function DataAjax2(url, form_id, errorFlag) {
 	var resultData;
 	
 	var data = $("#" + form_id).serialize();
-	console.log(JSON.stringify(data));
-	console.log(url);
 	$.ajax({
 		type : "POST",
 		url : url,
