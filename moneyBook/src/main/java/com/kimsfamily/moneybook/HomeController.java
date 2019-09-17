@@ -193,4 +193,36 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/test2", method = RequestMethod.GET)
+	public ModelAndView test2(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("-----------------------------------------------------------------");
+		logger.info("@RequestMapping /main2");
+		if(!reqmap.isEmpty()) {
+			logger.info("@RequestParam reqmap ==> ");
+			logger.info(reqmap.toString());
+		}
+		new RequestUtil(request);
+		logger.info("-----------------------------------------------------------------");
+		
+		ModelAndView mav = null;
+		
+		try {
+			//mav = new ModelAndView("/main/index");
+			mav = new ModelAndView("/test2");
+			//mav = new ModelAndView("/moneybook/calendar");
+			
+			String userAgent = request.getHeader("User-Agent").toUpperCase();
+			IsDevice isDevice = new IsDevice();
+			
+			reqmap.put("curDevice", isDevice.returnDevice(userAgent));
+			
+			mav.addObject("map",reqmap);
+		} catch (Exception e) {
+			logger.info("@RequestMapping /test2 Catch");
+			logger.error(e.getMessage());
+		}
+		
+		return mav;
+	}
+	
 }
