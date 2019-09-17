@@ -165,6 +165,7 @@ public class MemberController {
 		}
 		reqmap.put("user_gubun", "1000000");
 		int resultFlag = mService.c_member_join(reqmap);
+		System.out.println("Git Test");
 		
 		try {
 			obj.put("resultFlag", resultFlag);
