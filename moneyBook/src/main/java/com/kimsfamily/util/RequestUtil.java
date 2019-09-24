@@ -15,8 +15,17 @@ public class RequestUtil {
 	
 	public RequestUtil() {}
 	
-	public RequestUtil(HttpServletRequest request) {
-		requestParam_output(request);
+	public RequestUtil(HttpServletRequest request, String controllerFlag) {
+		if("Y".equals(controllerFlag.toUpperCase())) {
+			String beforStack = new ClassUtils().beforStackString(2);
+			String intro = beforStack + " @RequestMapping " + request.getRequestURI().toString();
+			logger.info("-----------------------------------------------------------------");
+			logger.info(intro);
+			requestParam_output(request);
+			logger.info("-----------------------------------------------------------------");
+		}else {
+			requestParam_output(request);
+		}
 	}
 	
 	public RequestUtil(Map<String, Object> reqmap) {
@@ -25,6 +34,32 @@ public class RequestUtil {
 	
 	public RequestUtil(HashMap<String, Object> reqmap) {
 		requestPramHashMap_output(reqmap);
+	}
+	
+	public RequestUtil(HttpServletRequest request, Map<String, Object> reqmap) {
+		String beforStack = new ClassUtils().beforStackString(2);
+		String intro = beforStack + " @RequestMapping " + request.getRequestURI().toString();
+		logger.info("-----------------------------------------------------------------");
+		logger.info(intro);
+		requestPramMap_output(reqmap);
+		logger.info("-----------------------------------------------------------------");
+	}
+	
+	public RequestUtil(HttpServletRequest request, HashMap<String, Object> reqmap) {
+		String beforStack = new ClassUtils().beforStackString(2);
+		String intro = beforStack + " @RequestMapping " + request.getRequestURI().toString();
+		logger.info("-----------------------------------------------------------------");
+		logger.info(intro);
+		requestPramHashMap_output(reqmap);
+		logger.info("-----------------------------------------------------------------");
+	}
+	
+	public String beforStackString() {
+		String beforStack = new Throwable().getStackTrace()[2].getClassName();
+		int beforlastindex = beforStack.lastIndexOf(".");
+		
+		beforStack = beforStack.substring(beforlastindex + 1);
+		return beforStack;
 	}
 
 	public void requestParam_output(HttpServletRequest request) {

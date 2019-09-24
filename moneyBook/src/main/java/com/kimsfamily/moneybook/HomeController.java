@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kimsfamily.util.CatchUtils;
 import com.kimsfamily.util.IsDevice;
 import com.kimsfamily.util.RequestUtil;
+import com.kimsfamily.util.StrUtils;
 
 @Controller
 public class HomeController {
@@ -23,59 +25,20 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
+		new RequestUtil(request, reqmap);
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			mav = new ModelAndView("/member/login");
-			
-			String userAgent = request.getHeader("User-Agent").toUpperCase();
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+
+		}finally {
 			IsDevice isDevice = new IsDevice();
-			
-			reqmap.put("curDevice", isDevice.returnDevice(userAgent));
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
 			
 			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping / Catch");
-			logger.error(e.getMessage());
-		}
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/2", method = RequestMethod.GET)
-	public ModelAndView index2(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /2");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
-		
-		ModelAndView mav = null;
-		
-		try {
-			mav = new ModelAndView("/member/login_bak");
-			
-			String userAgent = request.getHeader("User-Agent").toUpperCase();
-			IsDevice isDevice = new IsDevice();
-			
-			reqmap.put("curDevice", isDevice.returnDevice(userAgent));
-			
-			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping /2 Catch");
-			logger.error(e.getMessage());
 		}
 		
 		return mav;
@@ -83,31 +46,20 @@ public class HomeController {
 	
 	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
 	public ModelAndView calendar(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /main");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
+		new RequestUtil(request, reqmap);
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView("/main/index");
+		//ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			mav = new ModelAndView("/main/index");
-			//mav = new ModelAndView("/test");
-			//mav = new ModelAndView("/moneybook/calendar");
-			
-			String userAgent = request.getHeader("User-Agent").toUpperCase();
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
 			IsDevice isDevice = new IsDevice();
-			
-			reqmap.put("curDevice", isDevice.returnDevice(userAgent));
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
 			
 			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping /test Catch");
-			logger.error(e.getMessage());
 		}
 		
 		return mav;
@@ -115,79 +67,64 @@ public class HomeController {
 	
 	@RequestMapping(value = "/modalContent.do", method = RequestMethod.GET)
 	public ModelAndView modalContent(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /main");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
+		new RequestUtil(request, reqmap);
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView("/moneybook/modalContent");
+		//ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			mav = new ModelAndView("/moneybook/modalContent");
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
 			
 			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping /test Catch");
-			logger.error(e.getMessage());
 		}
+		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/calendarControls.html", method = RequestMethod.GET)
 	public ModelAndView calendarControls(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /main");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
+		new RequestUtil(request, reqmap);
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView("/moneybook/calendarControls");
+		//ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			mav = new ModelAndView("/moneybook/calendarControls");
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
 			
 			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping /test Catch");
-			logger.error(e.getMessage());
 		}
+		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public ModelAndView test(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /main");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
+		new RequestUtil(request, reqmap);
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView("/test");
+		//ModelAndView mav = new ModelAndView("/main/index");
+		//ModelAndView mav = new ModelAndView("/moneybook/calendar");
+		//ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			//mav = new ModelAndView("/main/index");
-			mav = new ModelAndView("/test");
-			//mav = new ModelAndView("/moneybook/calendar");
-			
-			String userAgent = request.getHeader("User-Agent").toUpperCase();
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
 			IsDevice isDevice = new IsDevice();
-			
-			reqmap.put("curDevice", isDevice.returnDevice(userAgent));
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
 			
 			mav.addObject("map",reqmap);
-		} catch (Exception e) {
-			logger.info("@RequestMapping /test Catch");
-			logger.error(e.getMessage());
 		}
 		
 		return mav;
@@ -195,31 +132,86 @@ public class HomeController {
 	
 	@RequestMapping(value = "/test2", method = RequestMethod.GET)
 	public ModelAndView test2(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("-----------------------------------------------------------------");
-		logger.info("@RequestMapping /main2");
-		if(!reqmap.isEmpty()) {
-			logger.info("@RequestParam reqmap ==> ");
-			logger.info(reqmap.toString());
-		}
-		new RequestUtil(request);
-		logger.info("-----------------------------------------------------------------");
+		new RequestUtil(request, reqmap);
 		
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView("/test2");
+		//ModelAndView mav = new ModelAndView("/main/index");
+		//ModelAndView mav = new ModelAndView("/moneybook/calendar");
+		//ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			//mav = new ModelAndView("/main/index");
-			mav = new ModelAndView("/test2");
-			//mav = new ModelAndView("/moneybook/calendar");
-			
-			String userAgent = request.getHeader("User-Agent").toUpperCase();
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
 			IsDevice isDevice = new IsDevice();
-			
-			reqmap.put("curDevice", isDevice.returnDevice(userAgent));
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
 			
 			mav.addObject("map",reqmap);
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/test3", method = RequestMethod.GET)
+	public ModelAndView test3(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+		new RequestUtil(request, reqmap);
+		
+		ModelAndView mav = new ModelAndView("/test3");
+		//ModelAndView mav = new ModelAndView("/main/index");
+		//ModelAndView mav = new ModelAndView("/moneybook/calendar");
+		//ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
+		
+		try {
 		} catch (Exception e) {
-			logger.info("@RequestMapping /test2 Catch");
-			logger.error(e.getMessage());
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
+			
+			mav.addObject("map",reqmap);
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/push", method = RequestMethod.GET)
+	public ModelAndView push(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+		new RequestUtil(request, reqmap);
+		
+		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
+		
+		try {
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
+			
+			mav.addObject("map",reqmap);
+			mav.addObject("cotents","이건 테스트고요 이건\\uD83C\\uDF8D이모티콘 입니다.");
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/pushAll.do", method = RequestMethod.GET)
+	public ModelAndView pushsubmit(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+		new RequestUtil(request, reqmap);
+		
+		ModelAndView mav = new ModelAndView("/push");
+		
+		try {
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
+			
+			mav.addObject("map",reqmap);
 		}
 		
 		return mav;
