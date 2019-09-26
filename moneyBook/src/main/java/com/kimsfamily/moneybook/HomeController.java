@@ -33,7 +33,7 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			
+
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
 			new CatchUtils(e);
