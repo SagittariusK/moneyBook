@@ -33,8 +33,7 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			List<MemberVO> loginList = (List<MemberVO>) session.getAttribute("MemberInfo");
-			System.out.println("loginList ==> " + loginList.toString());
+			System.out.println("test");
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
 			new CatchUtils(e);
