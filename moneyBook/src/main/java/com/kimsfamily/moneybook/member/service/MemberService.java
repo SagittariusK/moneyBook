@@ -30,7 +30,7 @@ public class MemberService {
 			resultFlag = 2;
 		}else {
 			resultFlag = 1;
-			session.setAttribute("memberInfo", (MemberVO) loginList.get(0));
+			session.setAttribute("MemberInfo", (MemberVO) loginList.get(0));
 		}
 		
 		return resultFlag;

@@ -89,5 +89,4 @@ function DataAjax2(url, form_id, errorFlag) {
 	
 	return resultData;
 	
-	
 }

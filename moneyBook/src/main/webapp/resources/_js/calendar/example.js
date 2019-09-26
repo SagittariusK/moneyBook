@@ -29,6 +29,8 @@ angular
 		
 		console.log(moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate());
 		console.log(moment().startOf('week').add(1, 'week').add(9, 'hours').toDate())
+		console.log(moment().startOf('day').add(7, 'hours').toDate());
+		console.log(moment().startOf('day').add(19, 'hours').toDate());
 		vm.events = [
 			{
 				title: 'An event',
@@ -49,8 +51,8 @@ angular
 			}, {
 				title: 'This is a really long event title that occurs on every year', // 이벤트 제목
 				color: calendarConfig.colorTypes.important, // 더 이상 사용되지 않는 이벤트 유형에 대한 바로 가기를위한 calendarConfig.colorTypes.warning 일 수도 있습니다.
-				startsAt: moment().startOf('day').add(7, 'hours').toDate(), // 이벤트가 시작될 때의 JavaScript 날짜 객체
-				endsAt: moment().startOf('day').add(19, 'hours').toDate(), // 선택 사항-이벤트 종료 시점을위한 자바 스크립트 날짜 객체
+				startsAt: moment(new Date('2019-09-05 15:32:55')).toDate(), // 이벤트가 시작될 때의 JavaScript 날짜 객체
+				//endsAt: moment(new Date('2019-09-09 09:12:33')).toDate(), // 선택 사항-이벤트 종료 시점을위한 자바 스크립트 날짜 객체
 				recursOn: 'year', // 설정된 경우 일정 기간 동안 이벤트가 반복됩니다. 유효한 값은 연도 또는 월입니다.
 				draggable: true, // 이벤트가 드래그하고 드롭 할 수 있도록 허용 
 				resizable: true, // 이벤트가 크기를 조정할 수 있도록 허용

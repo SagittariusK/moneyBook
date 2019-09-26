@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -22,6 +22,21 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.kimsfamily.moneybook" />
+	
+	<beans:bean id="loginInterceptor" class="com.kimsfamily.interceptor.LoginInterceptor" />
+
+	<interceptors>
+		
+		<!-- 로그인 유무 체크 -->
+		<interceptor>
+			<mapping path="/*"/>
+			<exclude-mapping path="/member/joinForm.do"/>
+			<exclude-mapping path="/member/login.do"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+		
+	</interceptors>
 	
 	
 	

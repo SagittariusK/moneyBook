@@ -37,7 +37,7 @@
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
-				<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+				<div class="sidebar-brand-text mx-3">Kims <sup>Family</sup></div>
 			</a>
 
 			<!-- Divider -->
@@ -47,22 +47,24 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="index.html">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Dashboard</span></a>
+					<span>홈</span></a>
 			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+			
+			<!-- 가계부 시작 -->
 
 			<!-- Heading -->
 			<div class="sidebar-heading">
-				Interface
+				가계부
 			</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 					<i class="fas fa-fw fa-cog"></i>
-					<span>Components</span>
+					<span>달력</span>
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
@@ -89,16 +91,18 @@
 					</div>
 				</div>
 			</li>
+			
+			<!-- 가계부 끝 -->
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
-
-			<!-- Heading -->
+			
+			<!-- Heading
 			<div class="sidebar-heading">
 				Addons
-			</div>
+			</div> -->
 
-			<!-- Nav Item - Pages Collapse Menu -->
+			<!-- Nav Item - Pages Collapse Menu
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
@@ -116,29 +120,29 @@
 						<a class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
 				</div>
-			</li>
+			</li> -->
 
-			<!-- Nav Item - Charts -->
+			<!-- Nav Item - Charts
 			<li class="nav-item">
 				<a class="nav-link" href="charts.html">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>Charts</span></a>
-			</li>
+			</li> -->
 
-			<!-- Nav Item - Tables -->
+			<!-- Nav Item - Tables
 			<li class="nav-item">
 				<a class="nav-link" href="tables.html">
 					<i class="fas fa-fw fa-table"></i>
 					<span>Tables</span></a>
-			</li>
+			</li> -->
 
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
+			<!-- Divider
+			<hr class="sidebar-divider d-none d-md-block"> -->
 
-			<!-- Sidebar Toggler (Sidebar) -->
+			<!-- Sidebar Toggler (Sidebar)
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+			</div> -->
 
 		</ul>
 		<!-- End of Sidebar -->
@@ -331,15 +335,13 @@
 
 				</nav>
 				<!-- End of Topbar -->
-
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
-
-					<!-- 여기부터 내용작성 -->
-					<jsp:include page="../moneybook/calendar.jsp"></jsp:include>
-
-				</div>
-				<!-- /.container-fluid -->
+				
+				
+				
+				<!-- 여기부터 내용작성 -->
+				<jsp:include page="../moneybook/calendar.jsp"></jsp:include>
+				
+				
 
 			</div>
 			<!-- End of Main Content -->

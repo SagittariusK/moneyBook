@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"> 
+
+	<!-- Uncomment and your base-package here: <context:component-scan base-package="org.springframework.samples.web"/> -->
+
+
+	<mvc:annotation-driven />
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.kimsfamily.*" />
+
+	
+	
+	<!-- interceptor -->
+	<mvc:interceptors>
+		<!-- 보안처리 http >>> https -->
+        <mvc:interceptor>
+           <mvc:mapping path="/mypage/user/**" />	<!-- 개인정보 관리 -->		
+           <mvc:mapping path="/security/ajax/mypage/**" />	<!-- 개인정보 관리 ajax -->
+           <mvc:mapping path="/security/member/**" />	<!-- 회원가입 -->
+           <mvc:mapping path="/admin/**" />	<!-- 관리자 -->	
+           <mvc:mapping path="/member/login_0**" />	<!-- 로그인 -->
+           <mvc:mapping path="/member/memJoin_03**" />	<!-- 회원가입 -->
+           <mvc:mapping path="/member/memJoin_05**" />	<!-- 회원가입 -->
+           <mvc:mapping path="/security/ajax/member/**" />
+           <mvc:mapping path="/customer/cusSouWri**" />	<!-- 1:1 문의 -->
+           <mvc:mapping path="/customer/cusReqWri0**" />	<!-- 무료교육 상담 -->
+           <mvc:mapping path="/security/customer/**" />	<!-- 1:1 문의 ajax -->
+           <mvc:mapping path="/customer/cusReqCom**" />	<!-- 무료교육 결과 -->
+           <mvc:mapping path="/customer/AmazingLibrary_list.do" />	<!-- 신기한나라 라이브러리 등록 -->
+           <mvc:mapping path="/customer/AmazingLibrary_inquiry.do" />	<!-- 신기한나라 라이브러리 조회 -->
+		   <mvc:mapping path="/customer/security/**" />	<!-- 신기한라이브러리 보안조회등록관련 -->
+           <mvc:mapping path="/etc/kidsland/joinchklist.do" />	<!-- 신기한나라TV가입등록조회 -->
+           <mvc:mapping path="/etc/ajax/kidsland/insert_joinchk2.do" />	<!-- 신기한나라TV가입 -->
+           <mvc:mapping path="/etc/kidsland/joinchkform.do" />	<!-- 신기한나라TV가입폼 -->
+           <mvc:mapping path="/etc/ajax/httpstest.do" />	<!-- 테스트용 -->
+           <mvc:mapping path="/event/wri0**"/>	<!-- 무료교육 상담 친구소개이벤트 -->
+           <mvc:mapping path="/event/mypMyinfoEvt.do"/>	<!-- 이벤트용 개인정보 수정페이지 -->
+           <mvc:mapping path="/security/ajax/event/insert_TB_EVENT_MEMBERSHIP_AGREE_ajax.do"/>	<!-- 개인정보수정 이벤트 응모 이력저장 -->
+           <mvc:mapping path="/prod/**"/> <!-- 주문 -->
+
+           <mvc:exclude-mapping path="/common/editorUpload.do"/>	<!-- 파일업로드 -->
+           <mvc:exclude-mapping path="/member/logout.do"/>	<!-- 로그아웃 -->
+           <mvc:exclude-mapping path="/security/member/**"/>	<!-- 회원가입 -->
+           <mvc:exclude-mapping path="/mypage/cate/mobile**"/> <!-- 모바일 결제 -->
+
+           <bean class="com.eduhansol.interceptor.HttpsInterCeptor"/> 
+        </mvc:interceptor>
+        
+        <!-- 보안처리 https >>> http -->
+        <mvc:interceptor>
+           <mvc:mapping path="/**" />
+           
+           <mvc:exclude-mapping path="/mypage/user/**"/>	<!-- 개인정보 관리 -->
+           <mvc:exclude-mapping path="/security/ajax/mypage/**"/>	<!-- 개인정보 관리 ajax -->
+           <mvc:exclude-mapping path="/common/editorUpload.do"/>	<!-- 파일업로드 -->
+           <mvc:exclude-mapping path="/member/logout.do"/>	<!-- 로그아웃 -->
+           <mvc:exclude-mapping path="/member/login_0**"/>	<!-- 로그인 -->
+           <mvc:exclude-mapping path="/security/ajax/member/**"/>
+           <mvc:exclude-mapping path="/member/memJoin_03**"/>	<!-- 회원가입 -->
+           <mvc:exclude-mapping path="/member/memJoin_05**"/>	<!-- 회원가입 -->
+           <mvc:exclude-mapping path="/security/member/**"/>	<!-- 회원가입 -->
+           <mvc:exclude-mapping path="/mypage/cate/mobile**"/> <!-- 모바일 결제 -->
+           <mvc:exclude-mapping path="/admin/**"/>	<!-- 관리자 -->	
+           <mvc:exclude-mapping path="/customer/cusSouWri**"/>	<!-- 1:1 문의 -->
+           <mvc:exclude-mapping path="/customer/cusReqWri0**"/>	<!-- 무료교육 상담 -->
+           <mvc:exclude-mapping path="/security/customer/**"/>	<!-- 1:1 문의 ajax -->
+           <mvc:exclude-mapping path="/customer/cusReqCom**"/>	<!-- 무료교육 결과 -->
+           <mvc:exclude-mapping path="/app/setting/setPushRecv.do"/>	<!-- APP 푸쉬 수신 동의 -->
+           <mvc:exclude-mapping path="/customer/AmazingLibrary_list.do"/>	<!-- 신기한나라 라이브러리 등록 -->
+           <mvc:exclude-mapping path="/customer/AmazingLibrary_inquiry.do"/>	<!-- 신기한나라 라이브러리 조회 -->
+           <mvc:exclude-mapping path="/customer/security/**"/>	<!-- 신기한라이브러리 보안조회등록관련 -->
+           <mvc:exclude-mapping path="/etc/kidsland/joinchklist.do"/>	<!-- 신기한나라TV가입등록조회 -->
+           <mvc:exclude-mapping path="/etc/ajax/kidsland/insert_joinchk2.do"/>	<!-- 신기한나라TV가입 -->
+           <mvc:exclude-mapping path="/etc/kidsland/joinchkform.do"/> <!-- 신기한나라TV가입폼 -->
+           <mvc:exclude-mapping path="/etc/ajax/httpstest.do"/> <!-- 테스트용 -->
+           <mvc:exclude-mapping path="/event/wri0**"/>	<!-- 무료교육 상담 친구소개이벤트 -->
+           
+           <mvc:exclude-mapping path="/event/mypMyinfoEvt.do"/>	<!-- 이벤트용 개인정보 수정페이지 -->
+           <mvc:exclude-mapping path="/security/ajax/event/insert_TB_EVENT_MEMBERSHIP_AGREE_ajax.do"/>	<!-- 개인정보수정 이벤트 응모 이력저장 -->
+
+           <bean class="com.eduhansol.interceptor.HttpInterCeptor"/>
+        </mvc:interceptor>
+        
+		<!-- 로그 -->
+        <mvc:interceptor>
+           <mvc:mapping path="/**" />
+           <mvc:exclude-mapping path="/common/editorUpload.do"/>
+           <bean class="com.eduhansol.interceptor.LogInterCeptor"/>
+        </mvc:interceptor>
+        
+        <!-- 공통 -->
+        <mvc:interceptor>
+           <mvc:mapping path="/**" />
+           <mvc:exclude-mapping path="/admin/**"/>
+           <mvc:exclude-mapping path="/common/editorUpload.do"/>
+           <bean class="com.eduhansol.interceptor.CommonInterCeptor"/>
+        </mvc:interceptor>
+        
+		<!-- 관리자 권한 체크 -->
+        <mvc:interceptor>
+           <mvc:mapping path="/admin/**" />
+           <mvc:exclude-mapping path="/admin/main/loginForm.do"/>
+           <mvc:exclude-mapping path="/admin/ajax/admMember/loginCheck.do"/>
+           <mvc:exclude-mapping path="/common/editorUpload.do"/>
+           <bean class="com.eduhansol.interceptor.AdminInterCeptor"/>
+        </mvc:interceptor>
+        
+        <!-- 로그인 유무 체크 -->
+        <mvc:interceptor>
+           <mvc:mapping path="/**" />
+           <mvc:exclude-mapping path="/common/editorUpload.do"/>
+           <bean class="com.eduhansol.interceptor.LoginInterCeptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    
+    <!-- 유저정보 annotation 설정 -->
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="com.eduhansol.www.config.UserInfoResolver"></bean>      
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+     
+
+	<!-- Multipart -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	
+	<!-- properties 설정 -->
+	<!-- 로컬 -->
+	<!--  
+	<util:properties id="settingProp" location="classpath:com/eduhansol/www/config/setting.properties" />
+	<util:properties id="paycoProp" location="classpath:com/eduhansol/www/config/paycoLocal.properties" />
+	<util:properties id="inipayProp" location="classpath:com/eduhansol/www/config/inipayLocal.properties" />
+-->
+	 
+	<!-- 개발 -->
+	<!-- <util:properties id="settingProp" location="classpath:com/eduhansol/www/config/setting.properties" />
+	<util:properties id="paycoProp" location="classpath:com/eduhansol/www/config/paycoDev.properties" />
+	<util:properties id="inipayProp" location="classpath:com/eduhansol/www/config/inipayDev.properties" /> -->
+	
+	<!-- 운영 --> 
+	<util:properties id="settingProp" location="classpath:com/eduhansol/www/config/setting.properties" />
+	<util:properties id="paycoProp" location="classpath:com/eduhansol/www/config/paycoReal.properties" />
+	<util:properties id="inipayProp" location="classpath:com/eduhansol/www/config/inipayReal.properties" />
+	
+
+</beans>

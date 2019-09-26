@@ -1,9 +1,11 @@
 package com.kimsfamily.moneybook;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kimsfamily.moneybook.member.MemberVO;
 import com.kimsfamily.util.CatchUtils;
 import com.kimsfamily.util.IsDevice;
 import com.kimsfamily.util.RequestUtil;
@@ -24,12 +27,14 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView index(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
+			List<MemberVO> loginList = (List<MemberVO>) session.getAttribute("MemberInfo");
+			System.out.println("loginList ==> " + loginList.toString());
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
 			new CatchUtils(e);
@@ -44,8 +49,8 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
-	public ModelAndView calendar(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/calendar.do", method = RequestMethod.GET)
+	public ModelAndView calendar(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/main/index");
@@ -66,7 +71,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/modalContent.do", method = RequestMethod.GET)
-	public ModelAndView modalContent(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView modalContent(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/moneybook/modalContent");
@@ -87,7 +92,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/calendarControls.html", method = RequestMethod.GET)
-	public ModelAndView calendarControls(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView calendarControls(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/moneybook/calendarControls");
@@ -108,7 +113,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public ModelAndView test(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView test(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/test");
@@ -131,7 +136,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/test2", method = RequestMethod.GET)
-	public ModelAndView test2(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView test2(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/test2");
@@ -154,7 +159,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/test3", method = RequestMethod.GET)
-	public ModelAndView test3(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView test3(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/test3");
@@ -176,8 +181,28 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView register(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		new RequestUtil(request, reqmap);
+		
+		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
+		
+		try {
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
+			
+			mav.addObject("map",reqmap);
+		}
+		
+		return mav;
+	}
+	
 	@RequestMapping(value = "/push", method = RequestMethod.GET)
-	public ModelAndView push(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView push(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
@@ -198,7 +223,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/pushAll.do", method = RequestMethod.GET)
-	public ModelAndView pushsubmit(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView pushsubmit(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView("/push");
