@@ -29,6 +29,7 @@ public class HomeController {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
+		System.out.println("test git house");
 		try {
 
 		} catch (Exception e) {
