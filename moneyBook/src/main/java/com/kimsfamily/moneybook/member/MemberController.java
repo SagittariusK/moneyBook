@@ -38,7 +38,7 @@ public class MemberController {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
-		System.out.println("git test member2");
+		
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
