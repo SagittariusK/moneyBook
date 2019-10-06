@@ -42,8 +42,8 @@ public class MemberController {
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
-
 		}finally {
 			IsDevice isDevice = new IsDevice();
 			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
@@ -55,8 +55,8 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "member/ajax/loginAction.do", method = RequestMethod.POST)
-	public void loginAction(@RequestParam HashMap<String, Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	@RequestMapping(value = "/member/ajax/loginAction.do", method = RequestMethod.POST)
+	public void ajax_loginAction(@RequestParam HashMap<String, Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		JSONObject obj = new JSONObject();
@@ -79,6 +79,7 @@ public class MemberController {
 			response.getWriter().print(obj);
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}
 		
@@ -113,6 +114,7 @@ public class MemberController {
 			response.getWriter().print(obj);
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}
 		
@@ -143,6 +145,7 @@ public class MemberController {
 			response.getWriter().print(obj);
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}
 		

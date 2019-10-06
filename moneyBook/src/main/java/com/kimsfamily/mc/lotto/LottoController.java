@@ -38,26 +38,48 @@ public class LottoController {
 	
 //	private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
 	
-	@RequestMapping(value = "/lotto/lotto.do", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	@RequestMapping(value = "/lotto/lotto_insert.do", method = RequestMethod.GET)
+	public ModelAndView lotto_insert(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		new RequestUtil(request, reqmap);
+		
+		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
+		List<LottoVO> lottoNumList = new ArrayList<LottoVO>(); 
+		try {
+			lottoNumList = lottoService.r_lotto_log(request, reqmap);
+			
+			mav.addObject("lottoNumList", lottoNumList);
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
+			new CatchUtils(e);
+		}finally {
+			IsDevice isDevice = new IsDevice();
+			reqmap = isDevice.DevicehashMapReturn(request, reqmap);
+			
+			mav.addObject("map",reqmap);
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/lotto/ajax/lotto_insert.do", method = RequestMethod.GET)
+	public ModelAndView ajax_lotto_insert(@RequestParam HashMap<String,Object> reqmap, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
 		try {
-			// 로또 회차
-//	        String turn = "879";
-	        
 	        URL result;
              
-             
-//            System.out.println("읽기 결과 : " + object.toJSONString());\
             List<LottoVO> reqList = new ArrayList<LottoVO>();
             LottoVO lottoVO = new LottoVO();
             
-            int loopTurn = 1;
+            int resultFlag = 0;
+            
+            int loopTurn = 879;
             while (true) {
             	String turn = String.valueOf(loopTurn);
+            	
             	// 로또 추첨 결과 조회 URL
                 result = new URL("https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo=" + turn);
                 
@@ -66,14 +88,19 @@ public class LottoController {
                 // JSON 형식 읽기
                 JSONObject object = (JSONObject)JSONValue.parse(isr);
                 
+                System.out.println(object.toString());
+                
             	// 성공인 경우
             	if ("success".equals(object.get("returnValue"))) {
             		LottoUtils lottoUtils = new LottoUtils();
             		lottoVO = lottoUtils.lottoCollection(request, object);
             		reqList.add(lottoVO);
             		if(0 != loopTurn && (loopTurn % 100) == 0) {
-            			lottoService.c_lotto_log(request, reqList);
+//            			resultFlag = lottoService.c_lotto_log(request, reqList);
             			reqList = new ArrayList<LottoVO>();
+            			if(0 == resultFlag) {
+            				break;
+            			}
             		}
             		loopTurn++;
             	} else {
@@ -81,8 +108,9 @@ public class LottoController {
             		break;
             	}
 			}
+//            lottoService.c_lotto_log(request, reqList);
             
-            lottoService.c_lotto_log(request, reqList);
+            mav.addObject("resultFlag", resultFlag);
             mav.addObject("reqList", reqList);
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));

@@ -3,10 +3,29 @@
 
 
 <mapper namespace="com.kimsfamily.mc.lotto">
+	<select id="r_lotto_log" parameterType="HashMap" resultType="LottoVO">
+		SELECT * FROM LOTTO_LOG
+		WHERE 1=1
+			<if test="drwno != null and drwno != ''">AND DRWNO = #{drwno}</if>
+			<if test="drwnodate != null and drwnodate != ''">AND DRWNODATE = #{drwnodate}</if>
+			<if test="drwtno1 != null and drwtno1 != ''">AND DRWTNO1 = #{drwtno1}</if>
+			<if test="drwtno2 != null and drwtno2 != ''">AND DRWTNO2 = #{drwtno2}</if>
+			<if test="drwtno3 != null and drwtno3 != ''">AND DRWTNO3 = #{drwtno3}</if>
+			<if test="drwtno4 != null and drwtno4 != ''">AND DRWTNO4 = #{drwtno4}</if>
+			<if test="drwtno5 != null and drwtno5 != ''">AND DRWTNO5 = #{drwtno5}</if>
+			<if test="drwtno6 != null and drwtno6 != ''">AND DRWTNO6 = #{drwtno6}</if>
+			<if test="bnusno != null and bnusno != ''">AND BNUSNO = #{bnusno}</if>
+			<if test="firstprzwnerco != null and firstprzwnerco != ''">AND FIRSTPRZWNERCO = #{firstprzwnerco}</if>
+			<if test="totsellamnt != null and totsellamnt != ''">AND TOTSELLAMNT = #{totsellamnt}</if>
+			<if test="firstaccumamnt != null and firstaccumamnt != ''">AND FIRSTACCUMAMNT = #{firstaccumamnt}</if>
+			<if test="firstwinamnt != null and firstwinamnt != ''">AND FIRSTWINAMNT = #{firstwinamnt}</if>
+			<if test="reg_date != null and reg_date != ''">AND TO_CHAR(REG_DATE, 'YYYY-MM-DD') = #{reg_date}</if>
+	</select>
 	
 	<insert id="c_lotto_log" parameterType="HashMap">
 		INSERT INTO LOTTO_LOG(
 			DRWNO
+			, DRWNODATE
 			, DRWTNO1
 			, DRWTNO2
 			, DRWTNO3
@@ -14,15 +33,24 @@
 			, DRWTNO5
 			, DRWTNO6
 			, BNUSNO
+			, FIRSTPRZWNERCO
+			, TOTSELLAMNT
+			, FIRSTACCUMAMNT
+			, FIRSTWINAMNT
 		)VALUES(
-			${drwNo}
-			, ${drwtNo1}
-			, ${drwtNo2}
-			, ${drwtNo3}
-			, ${drwtNo4}
-			, ${drwtNo5}
-			, ${drwtNo6}
-			, ${bnusNo}
+			#{drwNo}
+			, #{drwNodate}
+			, #{drwtNo1}
+			, #{drwtNo2}
+			, #{drwtNo3}
+			, #{drwtNo4}
+			, #{drwtNo5}
+			, #{drwtNo6}
+			, #{bnusNo}
+			, #{firstprzwnerco}
+			, #{totsellamnt}
+			, #{firstaccumamnt}
+			, #{firstwinamnt}
 		)
 	</insert>
 

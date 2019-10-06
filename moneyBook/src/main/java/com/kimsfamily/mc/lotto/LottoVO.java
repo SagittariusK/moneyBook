@@ -3,6 +3,7 @@ package com.kimsfamily.mc.lotto;
 public class LottoVO {
 
 	int drwNo;
+	String drwNodate;
 	int drwtNo1;
 	int drwtNo2;
 	int drwtNo3;
@@ -10,15 +11,22 @@ public class LottoVO {
 	int drwtNo5;
 	int drwtNo6;
 	int bnusNo;
+	int firstPrzwnerCo;
+	int totSellamnt;
+	int firstAccumamnt;
+	int firstWinamnt;
+	String returnValue;
 
 	public LottoVO() {
 		super();
 	}
 
-	public LottoVO(int drwNo, int drwtNo1, int drwtNo2, int drwtNo3, int drwtNo4, int drwtNo5, int drwtNo6,
-			int bnusNo) {
+	public LottoVO(int drwNo, String drwNodate, int drwtNo1, int drwtNo2, int drwtNo3, int drwtNo4, int drwtNo5,
+			int drwtNo6, int bnusNo, int firstPrzwnerCo, int totSellamnt, int firstAccumamnt, int firstWinamnt,
+			String returnValue) {
 		super();
 		this.drwNo = drwNo;
+		this.drwNodate = drwNodate;
 		this.drwtNo1 = drwtNo1;
 		this.drwtNo2 = drwtNo2;
 		this.drwtNo3 = drwtNo3;
@@ -26,6 +34,11 @@ public class LottoVO {
 		this.drwtNo5 = drwtNo5;
 		this.drwtNo6 = drwtNo6;
 		this.bnusNo = bnusNo;
+		this.firstPrzwnerCo = firstPrzwnerCo;
+		this.totSellamnt = totSellamnt;
+		this.firstAccumamnt = firstAccumamnt;
+		this.firstWinamnt = firstWinamnt;
+		this.returnValue = returnValue;
 	}
 
 	public int getDrwNo() {
@@ -34,6 +47,14 @@ public class LottoVO {
 
 	public void setDrwNo(int drwNo) {
 		this.drwNo = drwNo;
+	}
+
+	public String getDrwNodate() {
+		return drwNodate;
+	}
+
+	public void setDrwNodate(String drwNodate) {
+		this.drwNodate = drwNodate;
 	}
 
 	public int getDrwtNo1() {
@@ -92,10 +113,53 @@ public class LottoVO {
 		this.bnusNo = bnusNo;
 	}
 
+	public int getFirstPrzwnerCo() {
+		return firstPrzwnerCo;
+	}
+
+	public void setFirstPrzwnerCo(int firstPrzwnerCo) {
+		this.firstPrzwnerCo = firstPrzwnerCo;
+	}
+
+	public int getTotSellamnt() {
+		return totSellamnt;
+	}
+
+	public void setTotSellamnt(int totSellamnt) {
+		this.totSellamnt = totSellamnt;
+	}
+
+	public int getFirstAccumamnt() {
+		return firstAccumamnt;
+	}
+
+	public void setFirstAccumamnt(int firstAccumamnt) {
+		this.firstAccumamnt = firstAccumamnt;
+	}
+
+	public int getFirstWinamnt() {
+		return firstWinamnt;
+	}
+
+	public void setFirstWinamnt(int firstWinamnt) {
+		this.firstWinamnt = firstWinamnt;
+	}
+
+	public String getReturnValue() {
+		return returnValue;
+	}
+
+	public void setReturnValue(String returnValue) {
+		this.returnValue = returnValue;
+	}
+
 	@Override
 	public String toString() {
-		return "LottoVO [drwNo=" + drwNo + ", drwtNo1=" + drwtNo1 + ", drwtNo2=" + drwtNo2 + ", drwtNo3=" + drwtNo3
-				+ ", drwtNo4=" + drwtNo4 + ", drwtNo5=" + drwtNo5 + ", drwtNo6=" + drwtNo6 + ", bnusNo=" + bnusNo + "]";
+		return "LottoVO [drwNo=" + drwNo + ", drwNodate=" + drwNodate + ", drwtNo1=" + drwtNo1 + ", drwtNo2=" + drwtNo2
+				+ ", drwtNo3=" + drwtNo3 + ", drwtNo4=" + drwtNo4 + ", drwtNo5=" + drwtNo5 + ", drwtNo6=" + drwtNo6
+				+ ", bnusNo=" + bnusNo + ", firstPrzwnerCo=" + firstPrzwnerCo + ", totSellamnt=" + totSellamnt
+				+ ", firstAccumamnt=" + firstAccumamnt + ", firstWinamnt=" + firstWinamnt + ", returnValue="
+				+ returnValue + "]";
 	}
 
 }

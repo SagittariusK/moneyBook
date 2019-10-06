@@ -34,6 +34,7 @@ public class HomeController {
 
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 
 		}finally {
@@ -56,6 +57,7 @@ public class HomeController {
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}finally {
 			IsDevice isDevice = new IsDevice();
@@ -77,6 +79,7 @@ public class HomeController {
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}finally {
 			IsDevice isDevice = new IsDevice();
@@ -98,6 +101,7 @@ public class HomeController {
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}finally {
 			IsDevice isDevice = new IsDevice();
@@ -121,6 +125,7 @@ public class HomeController {
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}finally {
 			IsDevice isDevice = new IsDevice();
@@ -141,6 +146,7 @@ public class HomeController {
 		try {
 		} catch (Exception e) {
 			logger.error(new CatchUtils().catchString(request));
+			logger.error("response Error");
 			new CatchUtils(e);
 		}finally {
 			IsDevice isDevice = new IsDevice();
