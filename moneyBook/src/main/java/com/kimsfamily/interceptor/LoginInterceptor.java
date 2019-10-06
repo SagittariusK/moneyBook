@@ -15,10 +15,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		System.out.println(getClass().getSimpleName() + ".preHandle()");
 
-		if ("yes".equals(request.getParameter("yesNo")))
+//		if ("yes".equals(request.getParameter("yesNo")))
 			return true;
-		else
-			return false;
+//		else
+//			return false;
 	}
 	
 	// Controller 처리를 하고 난 뒤에 실행되는 메서드

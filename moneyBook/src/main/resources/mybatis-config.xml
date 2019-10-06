@@ -7,7 +7,8 @@
   <typeAliases>
     <package name="java.util"/>
     <package name="java.lang"/>
-    <package name="com.kimsfamily.moneybook.member"/>
+    <package name="com.kimsfamily.mc.member"/>
+    <package name="com.kimsfamily.mc.lotto"/>
   </typeAliases>
 
 </configuration>

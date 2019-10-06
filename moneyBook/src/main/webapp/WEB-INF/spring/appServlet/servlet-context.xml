@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kimsfamily.moneybook" />
+	<context:component-scan base-package="com.kimsfamily" />
 	
 	<beans:bean id="loginInterceptor" class="com.kimsfamily.interceptor.LoginInterceptor" />
 
@@ -34,7 +34,6 @@
 			<exclude-mapping path="/member/login.do"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
-		
 		
 	</interceptors>
 	

@@ -34,13 +34,13 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:/com/kimsfamily/moneybook/**/mybatis/*_sql.xml"></property>
+		<property name="mapperLocations" value="classpath:/com/kimsfamily/**/**/mybatis/*_sql.xml"></property>
 	 </bean>
 	 
 	 <bean id="sqlSessionFactoryForMs" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceForMs" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:/com/kimsfamily/moneybook/**/mybatis/*_sql.xml"></property>
+		<property name="mapperLocations" value="classpath:/com/kimsfamily/**/**/mybatis/*_sql.xml"></property>
 	 </bean>
 	 
 	 <bean id="transactionManager"
@@ -63,6 +63,6 @@
 	   <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryForMs"></constructor-arg>
 	 </bean>
 	 
-	 <context:component-scan base-package="com.kimsfamily.moneybook.dao"></context:component-scan>
+	 <context:component-scan base-package="com.kimsfamily.dao"></context:component-scan>
 	 
 </beans>

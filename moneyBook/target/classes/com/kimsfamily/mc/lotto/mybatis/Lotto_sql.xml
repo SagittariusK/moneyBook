@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kimsfamily.mc.lotto">
+	
+	<insert id="c_lotto_log" parameterType="HashMap">
+		INSERT INTO LOTTO_LOG(
+			DRWNO
+			, DRWTNO1
+			, DRWTNO2
+			, DRWTNO3
+			, DRWTNO4
+			, DRWTNO5
+			, DRWTNO6
+			, BNUSNO
+		)VALUES(
+			${drwNo}
+			, ${drwtNo1}
+			, ${drwtNo2}
+			, ${drwtNo3}
+			, ${drwtNo4}
+			, ${drwtNo5}
+			, ${drwtNo6}
+			, ${bnusNo}
+		)
+	</insert>
+
+</mapper>
