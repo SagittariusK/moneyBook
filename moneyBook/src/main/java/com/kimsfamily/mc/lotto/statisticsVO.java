@@ -1,6 +1,6 @@
 package com.kimsfamily.mc.lotto;
 
-public class LottoVO {
+public class statisticsVO {
 
 	int drwNo;
 	String drwNoDate;
@@ -16,15 +16,14 @@ public class LottoVO {
 	String firstAccumamnt;
 	String firstWinamnt;
 	String returnValue;
-	String reg_date;
 
-	public LottoVO() {
+	public statisticsVO() {
 		super();
 	}
 
-	public LottoVO(int drwNo, String drwNoDate, String drwtNo1, String drwtNo2, String drwtNo3, String drwtNo4,
+	public statisticsVO(int drwNo, String drwNoDate, String drwtNo1, String drwtNo2, String drwtNo3, String drwtNo4,
 			String drwtNo5, String drwtNo6, String bnusNo, String firstPrzwnerCo, String totSellamnt,
-			String firstAccumamnt, String firstWinamnt, String returnValue, String reg_date) {
+			String firstAccumamnt, String firstWinamnt, String returnValue) {
 		super();
 		this.drwNo = drwNo;
 		this.drwNoDate = drwNoDate;
@@ -40,7 +39,6 @@ public class LottoVO {
 		this.firstAccumamnt = firstAccumamnt;
 		this.firstWinamnt = firstWinamnt;
 		this.returnValue = returnValue;
-		this.reg_date = reg_date;
 	}
 
 	public int getDrwNo() {
@@ -155,21 +153,13 @@ public class LottoVO {
 		this.returnValue = returnValue;
 	}
 
-	public String getReg_date() {
-		return reg_date;
-	}
-
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
-	}
-
 	@Override
 	public String toString() {
 		return "LottoVO [drwNo=" + drwNo + ", drwNoDate=" + drwNoDate + ", drwtNo1=" + drwtNo1 + ", drwtNo2=" + drwtNo2
 				+ ", drwtNo3=" + drwtNo3 + ", drwtNo4=" + drwtNo4 + ", drwtNo5=" + drwtNo5 + ", drwtNo6=" + drwtNo6
 				+ ", bnusNo=" + bnusNo + ", firstPrzwnerCo=" + firstPrzwnerCo + ", totSellamnt=" + totSellamnt
 				+ ", firstAccumamnt=" + firstAccumamnt + ", firstWinamnt=" + firstWinamnt + ", returnValue="
-				+ returnValue + ", reg_date=" + reg_date + "]";
+				+ returnValue + "]";
 	}
 
 }

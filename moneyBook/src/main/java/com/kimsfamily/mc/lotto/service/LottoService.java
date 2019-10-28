@@ -27,12 +27,48 @@ public class LottoService {
 	
 	private static String namespace = "com.kimsfamily.mc.lotto";
 	
-	public int c_lotto_log(HttpServletRequest request, List<?> reqList) {
+	public HashMap<String, Object> r_cnt_lotto_log(HttpServletRequest request) {
+		HashMap<String, Object> cntMap = new HashMap<String, Object>();
+		try {
+			cntMap = oDao.selectOne(namespace + ".r_cnt_lotto_log"); 
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}
 		
+		return cntMap;
+	}
+	
+	public List<LottoVO> r_lotto_log(HttpServletRequest request, HashMap<String, Object> reqmap) {
+		List<LottoVO> logList = new ArrayList<LottoVO>();
+		try {
+			logList = oDao.selectList(namespace + ".r_lotto_log", reqmap); 
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}
+		
+		return logList;
+	}
+	
+	public List<HashMap<String, Object>> r_statistics_lotto(HttpServletRequest request) {
+		List<HashMap<String, Object>> logList = new ArrayList<HashMap<String, Object>>();
+		try {
+			logList = oDao.selectList(namespace + ".r_statistics_lotto"); 
+		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
+			new CatchUtils(e);
+		}
+		
+		return logList;
+	}
+	
+	public int c_lotto_log(HttpServletRequest request, List<?> reqList) {
 		int resultFlag = -1;
 		try {
 			resultFlag = oDao.batchInsert(namespace + ".c_lotto_log", reqList);
 		} catch (Exception e) {
+			logger.error(new CatchUtils().catchString(request));
 			new CatchUtils(e);
 			resultFlag = -1;
 		}
@@ -40,15 +76,4 @@ public class LottoService {
 		return resultFlag;
 	}
 
-	public List<LottoVO> r_lotto_log(HttpServletRequest request, HashMap<String, Object> reqmap) {
-		
-		List<LottoVO> loginList = new ArrayList<LottoVO>();
-		try {
-			loginList = oDao.selectList(namespace + ".r_lotto_log", reqmap); 
-		} catch (Exception e) {
-			new CatchUtils(e);
-		}
-		
-		return loginList;
-	}
 }

@@ -96,17 +96,22 @@ public class ObjectUtils {
 		while (itr.hasNext()) {
 			keyAttribute = (String) itr.next();
 			methodString = setMethodString + keyAttribute.substring(0, 1).toUpperCase() + keyAttribute.substring(1);
+			
 			try {
 				Method[] methods = objClass.getClass().getDeclaredMethods();
 				for (int i = 0; i <= methods.length - 1; i++) {
 					String methodName = methods[i].getName();
 					if (methodString.equals(methodName)) {
-						System.out.println("invoke : " + methodString + ", type : " + methods[i].getParameters());
-						System.out.println("map.get(keyAttribute): " + map.get(keyAttribute));
-						if("setTotSellamnt".equals(methodName)) {
+						if("com.kimsfamily.mc.lotto.LottoVO".equals(objClass.getClass().getName())) {
+							if("setDrwNo".equals(methodName)) {
+								methods[i].invoke(objClass, Integer.parseInt(map.get(keyAttribute).toString()));
+							}else {
+								methods[i].invoke(objClass, map.get(keyAttribute).toString());
+							}
+						}else {
+							methods[i].invoke(objClass, map.get(keyAttribute));
 						}
 
-						methods[i].invoke(objClass, map.get(keyAttribute));
 					}
 				}
 			} catch (SecurityException e) {
