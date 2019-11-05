@@ -30,7 +30,7 @@ public class HomeController {
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
 		
-		System.out.println("test git h07");
+		System.out.println("test git c08");
 		
 		try {
 
