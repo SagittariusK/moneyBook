@@ -29,8 +29,8 @@ public class HomeController {
 		new RequestUtil(request, reqmap);
 		
 		ModelAndView mav = new ModelAndView(new StrUtils().replaceLast(request.getRequestURI().toString(), ".do", ""));
-		
-		System.out.println("test git c08");
+
+		System.out.println("test git h08");
 		
 		try {
 
